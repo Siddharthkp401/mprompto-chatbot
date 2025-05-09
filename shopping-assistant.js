@@ -55,7 +55,6 @@
           width: 50px;
           height: 50px;
           border-radius: 50%;
-          background-color: #3b82f6;
           color: white;
           display: flex;
           align-items: center;
@@ -68,11 +67,7 @@
           z-index: 9999;
           transition: background-color 0.2s;
         }
-        
-        .sa-assistant-btn:hover {
-          background-color: #2563eb;
-        }
-        
+                
         /* Popup Container - Base for all popups */
         .sa-popup {
           position: fixed;
@@ -436,7 +431,7 @@
     createAssistantButton() {
       const button = document.createElement('button');
       button.className = 'sa-assistant-btn';
-      button.textContent = 'A';
+      button.innerHTML = '<img src="brand-logo.png" alt="Assistant" />';
       button.setAttribute('aria-label', 'Shopping Assistant');
       document.body.appendChild(button);
 
