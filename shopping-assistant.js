@@ -79,9 +79,8 @@
           background-color: white;
           border-radius: 12px;
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-          z-index: 9998;
-          overflow: hidden;
-          overflow-y: auto;
+          z-index: 9999;
+          overflow: visible;
           display: none;
           animation: sa-slide-up 0.3s ease;
         }
@@ -102,6 +101,53 @@
         }
         
         /* Product Recommendation Styles */
+        .sa-product-parent {
+          width: 100%;
+          max-width: 320px;
+          max-height: 80dvh;
+          border-radius: 12px;
+          background-color: white;
+          z-index: 9998;
+          overflow: hidden;
+          overflow-y: auto;
+        }
+        .sa-product-parent::-webkit-scrollbar { 
+          display: none;
+        }
+        .sa-close-btn-prod {
+          position: absolute;
+          top: -22px;
+          right: 45%;
+          cursor: pointer;
+          font-size: 30px;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .sa-cross-btn-prod {
+          position: absolute;
+          top: -32px;
+          right: 0;
+          cursor: pointer;
+          font-size: 30px;
+          width: 30px;
+          height: 30px;
+          background: transparent;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          border: none;
+          color: white;
+          font-size: 12px;
+        }
         .sa-product-header {
           padding: 16px;
           font-size: 14px;
@@ -299,10 +345,6 @@
           right: 24px;
         }
         
-        .sa-send-btn:hover {
-          // background-color: #2563eb;
-        }
-        
         /* Poll Styles */
         .sa-poll-container {
           padding: 16px;
@@ -448,6 +490,9 @@
       const productContainer = document.createElement('div');
       productContainer.className = 'sa-popup sa-product-popup';
       productContainer.innerHTML = `
+        <button class="sa-close-btn-prod"><img src="down-arrow.png" alt="close" /></button>
+        <button class="sa-cross-btn-prod">╳</button>
+        <div class="sa-product-parent">
         <div class="sa-product-header">
           <p>These are the best-suited helmets for your needs. 😍</p>
         </div>
@@ -476,6 +521,7 @@
           <button class="sa-btn sa-btn-primary">Add to Cart</button>
           <button class="sa-btn sa-btn-secondary">Refine My Search</button>
         </div>
+        </div>
       `;
       wrapper.appendChild(productContainer);
       this.productPopup = productContainer;
@@ -484,10 +530,14 @@
       const chatContainer = document.createElement('div');
       chatContainer.className = 'sa-popup sa-chat-popup';
       chatContainer.innerHTML = `
+        <button class="sa-close-btn-prod"><img src="down-arrow.png" alt="close" /></button>
+        <button class="sa-cross-btn-prod">╳</button>
+        <div class="sa-product-parent">
         <div class="sa-messages-container"></div>
         <div class="sa-chat-input-container">
           <input type="text" class="sa-chat-input" placeholder="Enter">
           <button class="sa-send-btn"><img src="send-icon.png" alt="send" /></button>
+        </div>
         </div>
       `;
       wrapper.appendChild(chatContainer);
@@ -499,6 +549,9 @@
       const pollContainer = document.createElement('div');
       pollContainer.className = 'sa-popup sa-poll-popup';
       pollContainer.innerHTML = `
+        <button class="sa-close-btn-prod"><img src="down-arrow.png" alt="close" /></button>
+        <button class="sa-cross-btn-prod">╳</button>
+        <div class="sa-product-parent">
         <div class="sa-poll-container">
           <p class="sa-poll-question">What features are most important in a helmet? 🤔</p>
           <div class="sa-poll-options">
@@ -509,14 +562,18 @@
           </div>
           <button class="sa-btn sa-btn-primary">Ask Me</button>
         </div>
+        </div>
       `;
       wrapper.appendChild(pollContainer);
       this.pollPopup = pollContainer;
 
       // Info Card Container
       const infoContainer = document.createElement('div');
-      infoContainer.className = 'sa-popup sa-info-popup sa-info-card';
+      infoContainer.className = 'sa-popup sa-info-popup';
       infoContainer.innerHTML = `
+        <button class="sa-close-btn-prod"><img src="down-arrow.png" alt="close" /></button>
+        <button class="sa-cross-btn-prod">╳</button>
+        <div class="sa-product-parent">
         <div class="sa-info-content">
           <p class="sa-info-text">
             Is a helmet with MIPS technology generally considered the top choice for cyclists because of its enhanced safety features, improved impact protection, and ability to provide added confidence during high-speed rides or in risky situations?
@@ -527,6 +584,7 @@
               <button class="sa-feedback-btn" data-feedback="dislike"><img src="dislike-icon.png" alt="dislike" /></button>
             </div>
           </div>
+        </div>
         </div>
       `;
       wrapper.appendChild(infoContainer);
@@ -542,10 +600,34 @@
         this.toggleAssistant();
       });
 
-      // Chat close button
-      this.chatPopup.querySelector('.sa-close-btn').addEventListener('click', () => {
+      this.chatPopup.querySelector('.sa-cross-btn-prod').addEventListener('click', () => {
         this.closeAllPopups();
       });
+      this.chatPopup.querySelector('.sa-close-btn-prod').addEventListener('click', () => {
+        this.closeAllPopups();
+      });
+
+      this.pollPopup.querySelector('.sa-cross-btn-prod').addEventListener('click', () => {
+        this.closeAllPopups();
+      });
+      this.pollPopup.querySelector('.sa-close-btn-prod').addEventListener('click', () => {
+        this.closeAllPopups();
+      });
+
+      this.productPopup.querySelector('.sa-cross-btn-prod').addEventListener('click', () => {
+        this.closeAllPopups();
+      });
+      this.productPopup.querySelector('.sa-close-btn-prod').addEventListener('click', () => {
+        this.closeAllPopups();
+      });
+
+      this.infoPopup.querySelector('.sa-cross-btn-prod').addEventListener('click', () => {
+        this.closeAllPopups();
+      });
+      this.infoPopup.querySelector('.sa-close-btn-prod').addEventListener('click', () => {
+        this.closeAllPopups();
+      });
+
 
       // Chat send button
       this.chatPopup.querySelector('.sa-send-btn').addEventListener('click', () => {
