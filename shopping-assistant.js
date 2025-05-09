@@ -265,9 +265,12 @@
         }
         
         .sa-thinking {
-          background-color: #e5e7eb;
-          color: #4b5563;
-          padding: 8px 12px;
+          background-color: #F5F5F5;
+          color: #000000;
+          opacity: 0.7;
+          font-weight: 400;
+          font-size: 14px;
+          padding: 6px 11px;
           border-radius: 12px;
           display: inline-block;
         }
@@ -275,34 +278,34 @@
         .sa-chat-input-container {
           display: flex;
           align-items: center;
-          padding: 12px;
-          border-top: 1px solid #f0f0f0;
+          padding: 16px;
+          position: relative;
         }
         
         .sa-chat-input {
           flex: 1;
-          border: none;
+          border: 1px solid #EEEEEE;
+          border-radius: 6px;
           outline: none;
           font-size: 14px;
-          padding: 8px 0;
+          padding: 8px 10px;
         }
         
         .sa-send-btn {
-          background-color: #3b82f6;
           color: white;
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
+          background-color: transparent;
           border: none;
           cursor: pointer;
           margin-left: 8px;
+          position: absolute;
+          right: 24px;
         }
         
         .sa-send-btn:hover {
-          background-color: #2563eb;
+          // background-color: #2563eb;
         }
         
         /* Poll Styles */
@@ -489,7 +492,7 @@
         <div class="sa-messages-container"></div>
         <div class="sa-chat-input-container">
           <input type="text" class="sa-chat-input" placeholder="Enter">
-          <button class="sa-send-btn">➤</button>
+          <button class="sa-send-btn"><img src="send-icon.png" alt="send" /></button>
         </div>
       `;
       wrapper.appendChild(chatContainer);
