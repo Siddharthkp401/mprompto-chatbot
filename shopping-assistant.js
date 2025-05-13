@@ -8,8 +8,8 @@
       this.messages = [
         { id: '1', content: 'What type of helmet are you looking for? Is it for cycling, motorcycling, or something else?', sender: 'assistant' },
         { id: '2', content: 'I need one for cycling.', sender: 'user' },
-        { id: '3', content: 'Great! Are you looking for something lightweight, or are you more focused on protection features? Also, do you have any specific preferences for brand or budget?', sender: 'assistant' },
-        { id: '4', content: 'I\'m looking for something with good protection but not too heavy. I don\'t have a specific brand in mind, but I don\'t want to spend more than $100', sender: 'user' }
+        // { id: '3', content: 'Great! Are you looking for something lightweight, or are you more focused on protection features? Also, do you have any specific preferences for brand or budget?', sender: 'assistant' },
+        // { id: '4', content: 'I\'m looking for something with good protection but not too heavy. I don\'t have a specific brand in mind, but I don\'t want to spend more than $100', sender: 'user' }
       ];
       this.isThinking = true;
       this.selectedPollOptions = [];
@@ -18,6 +18,11 @@
         { id: 1, name: 'Black MIPS Cycling Helmet', image: 'https://via.placeholder.com/300' }
       ];
       this.currentProductIndex = 0;
+      this.themeConfig = {
+        logo: "brand-logo.png",
+        brand_color_code: "#000000",
+        font_size: "14px"
+      }
 
       // Initialize the assistant
       this.init();
@@ -366,7 +371,7 @@
         .sa-poll-option {
           padding: 6px 16px;
           border-radius: 10px;
-          border: 1px solid #d1d5db;
+          border: 1px solid #232F3E;
           background-color: white;
           text-align: center;
           cursor: pointer;
@@ -726,13 +731,32 @@
         this.messagesContainer.appendChild(messageElement);
       });
 
+      const lastMessageElement = document.createElement('div');
+      lastMessageElement.className = `sa-message sa-message-assistant`;
+      lastMessageElement.textContent = "What features are most important in a helmet? 🤔";
+
+      this.messagesContainer.appendChild(lastMessageElement);
+
+      const pollHTML = `
+        <div class="sa-poll-options">
+          <button class="sa-poll-option" data-option="Safety Certifications">Safety Certifications</button>
+          <button class="sa-poll-option" data-option="MIPS Technology">MIPS Technology</button>
+          <button class="sa-poll-option" data-option="Fit and Comfort">Fit and Comfort</button>
+          <button class="sa-poll-option" data-option="Design and Style">Design and Style</button>
+        </div>
+        <button class="sa-btn sa-btn-primary">Ask Me</button>
+      `;
+
+      this.messagesContainer.insertAdjacentHTML('beforeend', pollHTML);
+
+
       // Add thinking indicator if needed
-      if (this.isThinking) {
-        const thinkingElement = document.createElement('div');
-        thinkingElement.className = 'sa-thinking';
-        thinkingElement.textContent = 'Thinking...';
-        this.messagesContainer.appendChild(thinkingElement);
-      }
+      // if (this.isThinking) {
+      //   const thinkingElement = document.createElement('div');
+      //   thinkingElement.className = 'sa-thinking';
+      //   thinkingElement.textContent = 'Thinking...';
+      //   this.messagesContainer.appendChild(thinkingElement);
+      // }
 
       // Scroll to bottom
       this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
